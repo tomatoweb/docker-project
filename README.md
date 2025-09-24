@@ -15,23 +15,24 @@
 9. Go to http://localhost/display-message.php?name=John, to test the HTTP request/response
 
 
-3. Comments about the docker-compose.yml :
+3. Some additional comments about the docker-compose.yml :
 
-```services:                           // the 3 containers
-  apache-php:                       // the name you want to give to your PHP mysqli container service
-    image: apache-mysqli            // ce container/service sera monté avec l'image that I named "apache-msqli" that I build with the Dockerfile who is pulling the image php:apache (php 8 + Apache) from the registry hub.docker.com and install and activate the extension php msqli
+```services:              // the 3 containers
+  apache-php:             // the name you want to give to your PHP mysqli container service
+    image: apache-mysqli  // ce container/service sera monté avec l'image that I named "apache-msqli" that I build with the Dockerfile who is pulling the image php:apache (php 8 + Apache) 
+		                      // from the registry hub.docker.com and install and activate the extension php msqli
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - C:/Users/matha/OneDrive/Desktop/docker-project/dotdev:/var/www/html         // mapping du folder web local au folder root de Apache dans le container 
+      - C:/Users/matha/OneDrive/Desktop/docker-project/dotdev:/var/www/html  // mapping du folder web local au folder root de Apache dans le container 
     ports:
       - "80:80"
     networks:
-      - app-network                         // les containers qui partagent un réseau leur permettent de s'accéder via leur nom de service (aka apache-php, mysql, phpmyadmin) 
+      - app-network   // les containers qui partagent un réseau leur permettent de s'accéder via leur nom de service (aka apache-php, mysql, phpmyadmin) 
 
   mysql:
-    image: mysql                            // ce container sera monté avec l'image "mysql" de la registry (hub.docker.com)
+    image: mysql     // ce container sera monté avec l'image "mysql" de la registry (hub.docker.com)
     volumes:
       - C:/Users/matha/OneDrive/Desktop/docker-project/DB:/var/lib/mysql
     restart: always
