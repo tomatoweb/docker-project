@@ -15,7 +15,7 @@
 9. Go to http://localhost/display-message.php?name=John, to test the HTTP request/response
 
 
-3. Comments abou the docker-compose.yml :
+3. Comments about the docker-compose.yml :
 
 ```services:                           // the 3 containers
   apache-php:                       // the name you want to give to your PHP mysqli container service
@@ -62,8 +62,8 @@ https://www.youtube.com/watch?v=xgFu26FWx5Y&ab_channel=Abstractprogrammer
 https://www.youtube.com/watch?v=2ygog4MHXws&t=806s
 
 
-This the full process of containerization :
-=========================================
+This is the full process of containerization :
+============================================
 
 Create a container      (pour les options : docker run --help)
 ------------------
