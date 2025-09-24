@@ -1,17 +1,25 @@
 
-This is a ready-to-use Docker containerized App PHP : PHP with mysqli extension, Apache, mysql, phpmyadmin
+This is a ready-to-use Docker containerized App with PHP : PHP with mysqli extension, Apache, mysql, phpmyadmin
 
-1. Lancer Docker Desktop
-2. taper docker-compose up dans un cmder, et aller sur
-     http://localhost/display-message.php?message=mathias2
-     http://localhost:8080                                          // phpmyadmin
-     http://localhost/insert_to_db.php
+1. Git clone
+2. Open Docker Desktop and login
+3. Change the volumes paths in docker-compose.yml with the path to your cloned project
+4. Mount the containers: docker-compose up -d
 
-3. Explications du docker-compose.yml :
+5.    http://localhost
+     	http://localhost:8080  // phpmyadmin
 
-services:                           // les 3 containers
-  apache-php:                       // le nom que je décide de donner à mon premier container/service
-    image: apache-mysqli            // ce container/service sera monté avec l'image (que je baptise apache-msqli) que je build avec le Dockerfile qui, lui, pull l'image php:apache (php 8 + Apache) de la registry (hub.docker.com) et y installe/active l'extension php msqli
+6. In PHPMYADMIN, create a new database 'dev'.
+7. Create a table 'example_table' with an auto-incr id, a first_name and a last_name.
+8. Go to http://localhost/insert_to_db.php, this will insert some data in the DB.
+9. Go to http://localhost/display-message.php?name=John, to test the HTTP request/response
+
+
+3. Commenting the docker-compose.yml :
+
+services:                           // the 3 containers
+  apache-php:                       // the name you want to give to your PHP mysqli container service
+    image: apache-mysqli            // ce container/service sera monté avec l'image that I named "apache-msqli" that I build with the Dockerfile who is pulling the image php:apache (php 8 + Apache) from the registry hub.docker.com and install and activate the extension php msqli
     build:
       context: .
       dockerfile: Dockerfile
@@ -49,13 +57,13 @@ networks:
 
 -----------------------------------------------------------------------------------------------------------------
 
-Tutos:
+Some additional Tutos:
 https://www.youtube.com/watch?v=xgFu26FWx5Y&ab_channel=Abstractprogrammer
 https://www.youtube.com/watch?v=2ygog4MHXws&t=806s
 
 
-How To de A à Z :
-===============
+This the full process of containerization :
+=========================================
 
 Create a container      (pour les options : docker run --help)
 ------------------

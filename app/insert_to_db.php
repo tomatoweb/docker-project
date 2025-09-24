@@ -3,7 +3,7 @@
 $servername = "mysql"; // le nom du service dans docker-compose.yml (le container php et le container mysql partage le même réseau et peuvent donc communiquer via leur nom de service/container)
 $username = "root";
 $password = "pw";
-$dbname = "example_db";
+$dbname = "dev";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
