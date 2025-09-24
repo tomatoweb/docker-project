@@ -15,7 +15,7 @@
 9. Go to http://localhost/display-message.php?name=John, to test the HTTP request/response
 
 
-3. Commenting the docker-compose.yml :
+3. Comments abou the docker-compose.yml :
 
 ```services:                           // the 3 containers
   apache-php:                       // the name you want to give to your PHP mysqli container service
