@@ -1,5 +1,6 @@
 
-App PHP dans 3 Docker containers : PHP8.2-Apache, mysql, phpmyadmin
+This is a ready-to-use Docker containerized App PHP : PHP with mysqli extension, Apache, mysql, phpmyadmin
+
 1. Lancer Docker Desktop
 2. taper docker-compose up dans un cmder, et aller sur
      http://localhost/display-message.php?message=mathias2
