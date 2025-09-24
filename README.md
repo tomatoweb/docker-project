@@ -1,5 +1,5 @@
 
-This is a ready-to-use Docker containerized App PHP with mysqli-extension, Apache, mysql, phpmyadmin
+## This is a ready-to-use Docker containerized App PHP with mysqli-extension, Apache, mysql, phpmyadmin
 
 1. Git clone
 2. Open your Docker Desktop and login
@@ -17,7 +17,7 @@ This is a ready-to-use Docker containerized App PHP with mysqli-extension, Apach
 
 3. Commenting the docker-compose.yml :
 
-services:                           // the 3 containers
+> services:                           // the 3 containers
   apache-php:                       // the name you want to give to your PHP mysqli container service
     image: apache-mysqli            // ce container/service sera monté avec l'image that I named "apache-msqli" that I build with the Dockerfile who is pulling the image php:apache (php 8 + Apache) from the registry hub.docker.com and install and activate the extension php msqli
     build:
