@@ -2,7 +2,7 @@
 This is a ready-to-use Docker containerized App PHP with mysqli-extension, Apache, mysql, phpmyadmin
 
 1. Git clone
-2. Open Docker Desktop and login
+2. Open your Docker Desktop and login
 3. Change the volumes paths in docker-compose.yml with the path to your cloned project
 4. Mount the containers: docker-compose up -d
 
