@@ -6,8 +6,8 @@
 3. Change the volumes paths in docker-compose.yml with the path to your cloned project
 4. Mount the containers: docker-compose up -d
 
-5.    http://localhost
-6.  	http://localhost:8080  // phpmyadmin
+5. http://localhost
+6. phpmyadmin	http://localhost:8080
 
 7. In PHPMYADMIN, create a new database 'dev'.
 8. Create a table 'example_table' with an auto-incr id, a first_name and a last_name.
