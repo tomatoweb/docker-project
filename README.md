@@ -1,5 +1,5 @@
 
-This is a ready-to-use Docker containerized App with PHP : PHP with mysqli extension, Apache, mysql, phpmyadmin
+This is a ready-to-use Docker containerized App PHP with mysqli-extension, Apache, mysql, phpmyadmin
 
 1. Git clone
 2. Open Docker Desktop and login
