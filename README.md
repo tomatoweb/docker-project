@@ -60,9 +60,9 @@ networks:
 
 -----------------------------------------------------------------------------------------------------------------
 
-Some additional Tutos:
-https://www.youtube.com/watch?v=xgFu26FWx5Y&ab_channel=Abstractprogrammer
-https://www.youtube.com/watch?v=2ygog4MHXws&t=806s
+##### Some additional Tutos:
+##### https://www.youtube.com/watch?v=xgFu26FWx5Y&ab_channel=Abstractprogrammer
+##### https://www.youtube.com/watch?v=2ygog4MHXws&t=806s
 
 
 This is the full process of containerization :
