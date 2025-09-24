@@ -64,7 +64,7 @@ networks:
 ##### https://www.youtube.com/watch?v=xgFu26FWx5Y&ab_channel=Abstractprogrammer
 ##### https://www.youtube.com/watch?v=2ygog4MHXws&t=806s
 
-
+```
 This is the full process of containerization :
 ============================================
 
@@ -143,3 +143,4 @@ docker run -d -p 80:80 -v C:/Users/matha/OneDrive/Desktop/docker-project/dotdev:
 // when docker-compose.yml is created, delete all containers (mysql-con, phpmyadmin, php-con) in Docker Desktop 
 // and execute
 docker compose up -d
+```
