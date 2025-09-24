@@ -18,7 +18,7 @@
 3. Some additional comments about the docker-compose.yml :
 
 ```
-	services:              // the 3 containers
+services:              // the 3 containers
   apache-php:             // the name you want to give to your PHP mysqli container service
     image: apache-mysqli  // ce container/service sera monté avec l'image that I named "apache-msqli" that I build with the Dockerfile who is pulling the image php:apache (php 8 + Apache) 
 		                      // from the registry hub.docker.com and install and activate the extension php msqli
