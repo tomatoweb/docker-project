@@ -7,8 +7,8 @@
 </head>
 <body>
   <?php
-    if(isset($_GET['message'])) {
-      echo 'Welcome ' . $_GET['message'];
+    if(isset($_GET['name'])) {
+      echo 'Welcome ' . $_GET['name'];
     } else {
       echo 'No message to display';
     }

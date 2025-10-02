@@ -15,7 +15,7 @@ services:
   mysql:
     image: mysql  
     volumes:
-      - C:/Users/matha/Desktop/Projects/docker-project/DB:/var/lib/mysql
+      - C:/Users/matha/OneDrive/Desktop/docker-project/DB:/var/lib/mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: pw
