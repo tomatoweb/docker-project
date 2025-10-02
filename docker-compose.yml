@@ -1,22 +1,21 @@
-version: '3.8'
-
 services:
+
   apache-php:
     image: apache-mysqli
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - C:/Users/matha/OneDrive/Desktop/docker-project/dotdev:/var/www/html
+      - C:/Users/matha/Desktop/Projects/docker-project/dotdev:/var/www/html
     ports:
       - "80:80"
     networks:
       - app-network
 
   mysql:
-    image: mysql
+    image: mysql  
     volumes:
-      - C:/Users/matha/OneDrive/Desktop/docker-project/DB:/var/lib/mysql
+      - C:/Users/matha/Desktop/Projects/docker-project/DB:/var/lib/mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: pw
