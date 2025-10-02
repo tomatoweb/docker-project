@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - D:/Projects/docker-project/dotdev:/var/www/html
+      - C:/Users/matha/OneDrive/Desktop/docker-project/dotdev:/var/www/html
     ports:
       - "80:80"
     networks:

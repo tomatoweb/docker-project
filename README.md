@@ -1,155 +1,41 @@
-This is a PHP app in three Docker containers : PHP8.2-Apache, mysql and phpmyadmin
-==============================================================================
 
-For DEMO :
+## This is a ready-to-use Docker containerized App PHP with mysqli-extension, Apache, mysql, phpmyadmin
 
-1. Lancer Docker Desktop
-2. taper docker-compose up dans un CLI
-3. tester:
-		http://localhost
-    http://localhost/display-message.php?message=mathias2
-    http://localhost:8080  // phpmyadmin (user: root, password: pw)
-    http://localhost/insert_to_db.php
+1. Git clone
+2. Open your Docker Desktop and login
+3. Change the volumes paths in docker-compose.yml with the path to your cloned project
+4. Mount the containers: docker-compose up -d
 
+5. http://localhost
+6. phpmyadmin	http://localhost:8080
 
-Tutos:
-https://www.youtube.com/watch?v=xgFu26FWx5Y&ab_channel=Abstractprogrammer
-https://www.youtube.com/watch?v=2ygog4MHXws&t=806s
+7. In PHPMYADMIN, create a new database 'dev'.
+8. Create a table 'example_table' with an auto-incr id, a first_name and a last_name.
+9. Go to http://localhost/insert_to_db.php, this will insert some data in the DB.
+10. Go to http://localhost/display-message.php?name=John, to test the HTTP request/response
 
 
-Docker de A à Z :
-===============
+11. Some additional comments about the docker-compose.yml :
 
-First Basic step, create a simple container :   
-			
-			docker run -d -p 80:80 --name php-con php:apache
-
-			// options: -i keep CLI open, -t  Allocate a pseudo-TTY, bin/bash is the program that will be executed
-
-Then enter this container :
-
-			docker exec -it php-cont /bin/bash    
-
-			root@1aa0588f7294:/var/www/html# apt update    // update the packages
-
-			root@1aa0588f7294:/var/www/html# apt install nano   // install editor Nano and create a index file for Apache to serve HTTP requests
-
-			nano index.php
-
-					<?php
-						phpinfo();
-					?>
-
-			save (ctrl+o then enter) and exit nano (ctrl+x)
-
-Go to http:localhost or http://localhost:80 and check the PHP version and Apache version
-
-
-This container is not persistent, this means if we stop it (docker stop php-con) 
-and relaunch with docker run -d -p 80:80 --name php-cont php:apache, our index.php is disappeared.
-
-To make a persistent container we need the -v flag (volume), 
-and map a local folder on our Windows host to the container /var/www/html folder :
-
-- create a folder dotdev in the host (windows), and an index.php 
-
-- remove all stopped containers  'docker container prune'
-
-- docker run -d -p 80:80 -v C:/Users/matha/OneDrive/Desktop/PHP_WS/dotdev:/var/www/html --name php-cont php:apache
-
-- http://localhost
-
-- Now we can stop the container (docker stop php-con or stop it in Docker Desktop)
-	and restart it and retrieve our persisted index page
-
-
-Create a MySQL container 
-------------------------
-
-docker run -d -v C:/Users/matha/OneDrive/Desktop/PHP_WS/DB:/var/lib/mysql --name mysql-con -e MYSQL_ROOT_PASSWORD=pw mysql 
-
-// -d detach, -e set environment variables, -p ports
-
-To connect the mysql-con to our php-con we need its IP address :
-
-docker inspect mysql-con | findstr IPAddr   // output : 172.17.0.3
-
-And finally create a DB and some table, rows.
-Let's do that with a PHPMYADMIN container: 
-
-
-Create a PHPMYADMIN container and connect it to our new mysql server
---------------------------------------------------------------------
-
-docker run -d --name phpmyadmin -e PMA_HOST=172.17.0.3 -p 8080:80 phpmyadmin
-
-open http:localhost:8080     (user root - password pw)
-
-create a new db and table in phpmyadmin
-
-Create the file insert_to_db.php in the dotdev folder
-
-then go to http://localhost/insert_to_db.php 
-
-!! this will give an error because the mysqli php extension is not yet installed
-
-we could install the mysqli extension manually in the mysql container with docker exec bash command
-
-but if we do that, each time we restart the container, we will have to install again the mysql php extension
-
-because everything we install localy in the container is temp, 
-the persistent solution is to create a Dockerfile (no extension) at the root of the project with content :
-        
-        FROM php:apache
-        RUN docker-php-ext-install mysqli
-        EXPOSE 80
-
-Then remove our php:apache container :
-
-	docker container ls   
-	docker stop php-con
-	docker container prune             // this will remove the stopped containers (e.g. php-con) but not the others (mysql-con and phpmyadmin)
-
-	note : You can also stop and remove containers via Docker Desktop.
-
-Create an new php apache image with the php mysqli extension, named 'apache-mysqli' build with our new dockerfile in current folder (.) :
-
-	docker build -t apache-mysqli .    // -t = tag
-
-Create the new container based on this new image :
-
-	docker run -d -p 80:80 -v C:/Users/matha/OneDrive/Desktop/PHP_WS/dotdev:/var/www/html  --name php-con apache-mysqli
-
-since we use a VOLUME (-v), the php files are available right away, go again to localhost/insert_to_db.php
-
-
-
-Now We can streamline this whole process by creating and using a docker-compose.yml file !
-
-
-delete all containers (mysql-con, phpmyadmin, php-con) in Docker Desktop and execute the docker-compose.yml
-
-docker compose up -d
-
-3. Explications du docker-compose.yml :
-
-services:                           // les 3 containers
-  apache-php:                       // le nom que je décide de donner à mon premier container/service
-    image: apache-mysqli            // ce container/service sera monté avec l'image (que je baptise apache-msqli) que je build avec le Dockerfile qui, lui, pull l'image php:apache (php 8 + Apache) de la registry (hub.docker.com) et y installe/active l'extension php msqli
+```
+services:              // the 3 containers
+  apache-php:             // the name you want to give to your PHP mysqli container service
+    image: apache-mysqli  // ce container/service sera monté avec l'image that I named "apache-msqli" that I build with the Dockerfile who is pulling the image php:apache (php 8 + Apache) 
+		                      // from the registry hub.docker.com and install and activate the extension php msqli
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - D:/Projects/docker-project/dotdev:/var/www/html         // mapping du folder web local au folder root de Apache dans le container 
+      - C:/Users/matha/OneDrive/Desktop/docker-project/dotdev:/var/www/html  // mapping du folder web local au folder root de Apache dans le container 
     ports:
       - "80:80"
     networks:
-      - app-network                         // les containers qui partagent un réseau leur permettent de s'accéder via leur nom de service (aka apache-php, mysql, phpmyadmin) 
+      - app-network   // les containers qui partagent un réseau leur permettent de s'accéder via leur nom de service (aka apache-php, mysql, phpmyadmin) 
 
   mysql:
-    image: mysql                            // ce container sera monté avec l'image "mysql" de la registry (hub.docker.com)
+    image: mysql     // ce container sera monté avec l'image "mysql" de la registry (hub.docker.com)
     volumes:
-      - D:/Projects/docker-project/DB:/var/lib/mysql
+      - C:/Users/matha/OneDrive/Desktop/docker-project/DB:/var/lib/mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: pw
@@ -170,3 +56,91 @@ services:                           // les 3 containers
 networks:
   app-network:
     driver: bridge
+```
+
+-----------------------------------------------------------------------------------------------------------------
+
+##### Some additional Tutos:
+##### https://www.youtube.com/watch?v=xgFu26FWx5Y&ab_channel=Abstractprogrammer
+##### https://www.youtube.com/watch?v=2ygog4MHXws&t=806s
+
+```
+This is the full process of containerization :
+============================================
+
+Create a container      (pour les options : docker run --help)
+------------------
+
+docker run -d -p 80:80 --name php-con php:apache    // -d détache (run in background), -p ports, php-con is the name I give to the container ("con" for container)
+
+docker exec -it php-con /bin/bash    // -i keep CLI open, -t  Allocate a pseudo-TTY,  bin/bash is the program that will be executed
+
+root@1aa0588f7294:/var/www/html# apt update  // update the packages
+
+root@1aa0588f7294:/var/www/html# apt install nano
+
+nano index.php
+
+		<?php
+             phpinfo();
+		?>
+
+Browse localhost:80
+
+!! But this way our container is not persistent, if we close it, our index.php will disappear.
+
+To make a persistent container we need the -v flag, and map a local (host) folder to a container's folder
+so, let's create a folder Dotdev in the current project (not in the php-con container) and map it to a container :
+
+We can now create a new container, but first remove all stopped containers
+docker container prune
+docker run -d -p 80:80 -v C:/Users/matha/OneDrive/Desktop/docker-project/dotdev:/var/www/html --name php-con php:apache   // -d run container in background, -p ports, -v volume
+
+
+Now we have a working PHP server on http://localhost/display-message.php?message=mathias  (80 as default http port)
+
+
+docker stop php-con
+docker start php-con   // remember we need first docker desktop to be started
+
+
+Add MySQL
+---------
+docker run -d -v C:/Users/matha/OneDrive/Desktop/docker-project/DB:/var/lib/mysql --name mysql-con -e MYSQL_ROOT_PASSWORD=pw  mysql
+
+// to access the mysql-con container from another container (php-con), we need its IP address (172.17.0.3)
+docker inspect mysql-con | findstr IPAddr
+
+// Create a phpmyadmin container
+docker run -d --name phpmyadmin -e PMA_HOST=172.17.0.3 -p 8080:80 phpmyadmin       // -d detach, -e environment, -p ports
+test http:ocalhost:8080/ (root pw)
+
+create some new table with phpmyadmin
+
+lets try to use PHP to use MySQL by creating insert_to_db.php in dotdev folder
+then go to localhost:80/insert_to_db.php 
+this will give an error because the mysqli php extension is not yet installed
+we could install the mysqli extension by login in the container and install it
+but if we do that, if we have to restart the container, we will have to again install the mysql extension
+as everything we install localy in the container is temporary
+that's why we do that by creating a Dockerfile 
+
+create the Dockerfile 
+
+Create a new IMAGE based on this Dockerfile
+docker container ls
+docker stop php-con
+docker container prune // this will remove the stopped container (php-con) but not the others (mysql-con and phpmyadmin)
+docker build -t apache-mysqli .    // -t tag, apache-mysqli is the name I give to this image build, . is the folder of the Dockerfile
+
+// and create the new container based on this new image
+docker run -d -p 80:80 -v C:/Users/matha/OneDrive/Desktop/docker-project/dotdev:/var/www/html  --name php-con apache-mysqli
+
+// since we use a VOLUME (-v) the php files are available right away, go again to localhost/insert_to_db.php
+
+// We can streamline this whole process by creating and using a docker-compose.yml file
+
+// when docker-compose.yml is created, delete all containers (mysql-con, phpmyadmin, php-con) in Docker Desktop 
+// and execute
+docker compose up -d
+```
