@@ -56,8 +56,6 @@ services:              // the 3 containers
 networks:
   app-network:
     driver: bridge
-<<<<<<< HEAD:README
-=======
 ```
 
 -----------------------------------------------------------------------------------------------------------------
@@ -146,4 +144,3 @@ docker run -d -p 80:80 -v C:/Users/matha/OneDrive/Desktop/docker-project/dotdev:
 // and execute
 docker compose up -d
 ```
->>>>>>> b918ba7efa961f4d0d212e0fe223b06116c03977:README.md
