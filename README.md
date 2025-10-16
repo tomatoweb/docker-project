@@ -41,10 +41,10 @@ services:              // the 3 containers
   mysql:
     image: mysql     // ce container sera monté avec l'image "mysql" de la registry (hub.docker.com)
     volumes:
-      - C:/Users/matha/OneDrive/Desktop/docker-project/DB:/var/lib/mysql
+      - C:/Users/matha/Desktop/Projects/docker-project/DB:/var/lib/mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: pw
+      MYSQL_ROOT_PASSWORC:/Users/matha/Desktop pw
     networks:
       - app-network
 
