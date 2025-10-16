@@ -9,8 +9,7 @@ If both files exist, Compose prefers the canonical compose.yaml .
 
 1. Git clone
 2. Open your Docker Desktop and login
-3. Change the 2 volumes (app and DB) paths in compose.yaml with the path to your cloned project
-4. Mount the containers with 
+3. Mount the containers with 
 ```
 docker compose up -d
 ``` 
@@ -29,13 +28,14 @@ Note : the V1 'docker-compose up -d' command written in Python is OBSOLETE, pref
 
 ```
 services:              // the 3 containers
+
   apache-php:             // the name you want to give to your PHP mysqli container service
     image: apache-mysqli  // We give the name 'apache-mysqli' the image that the result from the build with the with the Dockerfile who is pulling the image php:apache (php 8 + Apache) from the registry hub.docker.com and install and activate the extension php msqli
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - C:/Users/matha/OneDrive/Desktop/docker-project/dotdev:/var/www/html  // mapping du folder web local au folder root de Apache dans le container 
+      - ./app:/var/www/html  // mapping of /app local to /root de Apache inside the container 
     ports:
       - "80:80"
     networks:
@@ -44,10 +44,10 @@ services:              // the 3 containers
   mysql:
     image: mysql     // ce container sera monté avec l'image "mysql" de la registry (hub.docker.com)
     volumes:
-      - C:/Users/matha/Desktop/Projects/docker-project/DB:/var/lib/mysql
+      - ./DB:/var/lib/mysql // relative local path ./DB mapped to /var/lib/mysql in the container (to make mysql DB persistent)
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORC:/Users/matha/Desktop pw
+      MYSQL_ROOT_PASSWORD: pw
     networks:
       - app-network
 
@@ -67,7 +67,7 @@ networks:
     driver: bridge
 ```
 
------------------------------------------------------------------------------------------------------------------
+---
 
 ##### Some additional Tutos:
 ##### https://www.youtube.com/watch?v=xgFu26FWx5Y&ab_channel=Abstractprogrammer
