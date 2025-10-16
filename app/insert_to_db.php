@@ -1,10 +1,9 @@
 <?php
 
-//$servername = "172.17.0.3"; // le nom de serveur a utiliser sans docker-compose.yml
 $servername = "mysql"; // le nom du service dans docker-compose.yml (le container php et le container mysql partage le même réseau et peuvent donc communiquer via leur nom de service/container)
 $username = "root";
 $password = "pw";
-$dbname = "dev";
+$dbname = "example_db";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -12,7 +11,7 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "INSERT INTO example_table (first_name, last_name) VALUES ('John', 'Doe'), ('Jane', 'Doe')";
+$sql = "INSERT INTO example_table (first_name, last_name) VALUES ('Gil', 'Carter'), ('Math', 'App')";
 //$sql = "INSERT INTO example_table (first_name, last_name) VALUES ('Jack', 'Russel')";
 
 if ($conn->query($sql) === TRUE) {

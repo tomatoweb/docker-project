@@ -18,8 +18,8 @@ Note : the V1 'docker-compose up -d' command written in Python is OBSOLETE, pref
 5. http://localhost
 6. phpmyadmin	http://localhost:8080
 
-7. In PHPMYADMIN, create a new database 'dev'.
-8. Create a table 'example_table' with an auto-incr id, a first_name and a last_name.
+7. In PHPMYADMIN, create a new database 'example_db'.
+8. Create a table 'example_table' with an auto-incr id, a first_name and a last_name fields.
 9. Go to http://localhost/insert_to_db.php, this will insert some data in the DB.
 10. Go to http://localhost/display-message.php?name=John, to test the HTTP request/response
 
