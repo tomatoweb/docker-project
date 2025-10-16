@@ -14,7 +14,7 @@ If both files exist, Compose prefers the canonical compose.yaml .
 ```
 docker compose up -d
 ``` 
-note: the V1 'docker-compose up -d' command written in Python is OBSOLETE, prefer the V2 'docker compose up -d' command written in Go Lang
+Note : the V1 'docker-compose up -d' command written in Python is OBSOLETE, prefer the V2 'docker compose up -d' command written in Go Lang
 
 5. http://localhost
 6. phpmyadmin	http://localhost:8080
