@@ -11,7 +11,9 @@ If both files exist, Compose prefers the canonical compose.yaml .
 2. Open your Docker Desktop and login
 3. Change the 2 volumes (app and DB) paths in compose.yaml with the path to your cloned project
 4. Mount the containers with 
-```docker compose up -d``` 
+```
+docker compose up -d
+``` 
 (the V1 'docker-compose up -d' command written in Python is OBSOLETE, prefer the V2 'docker compose up -d' command written in Go Lang) 
 
 5. http://localhost
