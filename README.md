@@ -1,10 +1,17 @@
+### github.com:tomatoweb/docker-project.git
+
+## The preferred naming standard for the Compose file is compose.yaml
+The default path for a Compose file is compose.yaml (preferred) or compose.yml that is placed in the working directory. 
+Compose also supports docker-compose.yaml and docker-compose.yml for backwards compatibility of earlier versions. 
+If both files exist, Compose prefers the canonical compose.yaml .
 
 ## This is a ready-to-use Docker containerized App PHP with mysqli-extension, Apache, mysql, phpmyadmin
 
 1. Git clone
 2. Open your Docker Desktop and login
-3. Change the volumes paths in docker-compose.yml with the path to your cloned project
-4. Mount the containers: docker-compose up -d
+3. Change the 2 volumes (app and DB) paths in compose.yaml with the path to your cloned project
+4. Mount the containers: docker compose up -d 
+(the V1 'docker-compose up -d' command written in Python is OBSOLETE, prefer the V2 'docker compose up -d' command written in Go Lang) 
 
 5. http://localhost
 6. phpmyadmin	http://localhost:8080
@@ -15,13 +22,12 @@
 10. Go to http://localhost/display-message.php?name=John, to test the HTTP request/response
 
 
-11. Some additional comments about the docker-compose.yml :
+11. Some additional comments about the compose.yaml :
 
 ```
 services:              // the 3 containers
   apache-php:             // the name you want to give to your PHP mysqli container service
-    image: apache-mysqli  // ce container/service sera monté avec l'image that I named "apache-msqli" that I build with the Dockerfile who is pulling the image php:apache (php 8 + Apache) 
-		                      // from the registry hub.docker.com and install and activate the extension php msqli
+    image: apache-mysqli  // We give the name 'apache-mysqli' the image that the result from the build with the with the Dockerfile who is pulling the image php:apache (php 8 + Apache) from the registry hub.docker.com and install and activate the extension php msqli
     build:
       context: .
       dockerfile: Dockerfile
